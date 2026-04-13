@@ -1,0 +1,56 @@
+﻿@model List<Task4App.Models.User>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Users</h2>
+        <a asp-controller="Account" asp-action="Logout" class="btn btn-outline-danger">Logout</a>
+    </div>
+
+    <form method="post">
+        <div class="mb-3">
+            <button type="submit" formaction="/Users/Block" class="btn btn-danger">Block</button>
+            <button type="submit" formaction="/Users/Unblock" class="btn btn-success">Unblock</button>
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll" />
+                    </th>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Confirmed</th>
+                    <th>Blocked</th>
+                    <th>Created At</th>
+                    <th>Current User</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selectedUserIds" value="@user.Id" class="user-checkbox" />
+                        </td>
+                        <td>@user.Id</td>
+                        <td>@user.FullName</td>
+                        <td>@user.Email</td>
+                        <td>@user.IsConfirmed</td>
+                        <td>@user.IsBlocked</td>
+                        <td>@user.CreatedAt</td>
+                        <td>@(user.IsCurrentUser ? "Yes" : "No")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<script>
+    document.getElementById("selectAll").addEventListener("change", function () {
+        const isChecked = this.checked;
+        document.querySelectorAll(".user-checkbox").forEach(cb => cb.checked = isChecked);
+    });
+</script>
