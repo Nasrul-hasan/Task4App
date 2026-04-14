@@ -5,8 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+var dbPath = Path.Combine(AppContext.BaseDirectory, "app.db");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=app.db"));
+    options.UseSqlite($"Data Source={dbPath}"));
 
 builder.Services.AddSession(options =>
 {
@@ -23,6 +24,12 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseSession();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 app.MapControllerRoute(
     name: "default",
