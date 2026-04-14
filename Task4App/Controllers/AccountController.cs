@@ -118,12 +118,6 @@ namespace Task4App.Controllers
                 return View(model);
             }
 
-            if (!user.IsConfirmed)
-            {
-                ModelState.AddModelError("", "User is not confirmed.");
-                return View(model);
-            }
-
             if (user.IsBlocked)
             {
                 ModelState.AddModelError("", "User is blocked.");
