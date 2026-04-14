@@ -46,3 +46,11 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+.navbar {
+    border-radius: 0 0 10px 10px;
+}
+
+.navbar .btn:hover {
+        transform: scale(1.05);
+        transition: 0.2s;
+    }
