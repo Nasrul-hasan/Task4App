@@ -13,5 +13,5 @@ COPY --from=build /app/out ./
 
 ENV ASPNETCORE_URLS=http://+:10000
 EXPOSE 10000
-
+# Set the entry point to run the application
 ENTRYPOINT ["dotnet", "Task4App.dll"]
